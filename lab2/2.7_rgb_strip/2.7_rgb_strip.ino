@@ -1,6 +1,6 @@
 #include <Adafruit_NeoPixel.h> // Include the Adafruit NeoPixel library
 
-#define LED_PIN 14 // NeoPixel LED strip
+#define LED_PIN 15 // NeoPixel LED strip
 #define NUM_LEDS 8 // Number of LEDs
 
 // Create an instance of the Adafruit_NeoPixel class
@@ -11,23 +11,18 @@ void setup() {
   strip.show(); // Set initial color to black
 }
 
-uint16_t offset = 0;
-float offsetMagnitudeR = 25;
-float offsetMagnitudeG = 9;
-float offsetMagnitudeB = 73;
-
 void loop() {
-
+  // Turn on LEDs one by one
   for (int i = 0; i < NUM_LEDS; i++) {
-    const int freqMult = 3;
-    uint8_t sinValR = (sin((i*freqMult + offset/offsetMagnitudeR)/3.14) + 1) * 255/2;
-    uint8_t sinValG = (sin((i*freqMult + offset/offsetMagnitudeG)/3.14) + 1) * 255/2;
-    uint8_t sinValB = (sin((i*freqMult + offset/offsetMagnitudeB)/3.14) + 1) * 255/2;
-
-    strip.setPixelColor(i, sinValR, sinValG, sinValB); // Set the color of the i-th LED
+    strip.setPixelColor(i, 100, 45, 0); // Set the color of the i-th LED to red
     strip.show(); // Update the LED strip with the new colors
+    delay(100); // Wait for 100 milliseconds
   }
-  delay(10); // Wait for 100 milliseconds
-
-  offset++;
+  
+  // Turn off LEDs one by one
+  for (int i = 0; i < NUM_LEDS; i++) {
+    strip.setPixelColor(i, 0, 0, 0); // Set the color of the i-th LED to black (turn it off)
+    strip.show(); // Update the LED strip with the new colors
+    delay(100); // Wait for 100 milliseconds
+  }
 }

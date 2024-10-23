@@ -1,3 +1,5 @@
+/* Noah Klein & Ayden Coughlin*/
+
 #include <Adafruit_NeoPixel.h> // Include the Adafruit NeoPixel library
 
 #define LED_PIN 14 // NeoPixel LED strip
