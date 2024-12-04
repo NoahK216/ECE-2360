@@ -24,7 +24,7 @@ const int soilMoisturePin = 35;
 const int motor1A = 13;
 const int motor2A = 14;
 
-const double pctThreshold = 50;
+const double pctThreshold = 70;
 
 void setup() {
   Serial.begin(9600);
@@ -107,6 +107,8 @@ void setup() {
 #define PLANT_WARNINGS_SIZE 4
 char *plantWarnings[PLANT_WARNINGS_SIZE] = {"Plant is thirsty", "Moisture is require", "HELP", "Plant needs a Cherry Pepsi™"};
 
+const int pumpDelay_ms = 5000;
+
 void loop() {
   // MQTT Stuff
   // if (!client.connected()) {
@@ -130,28 +132,29 @@ void loop() {
     
     // long now = millis();
     // if (now - lastMsg > 5000) {
-      // lastMsg = now;
-      // char tempString[8];
-      // itostrf(moisture, 1, 2, tempString);
-      // sprintf("%d", &tempString, moisture);
-      // client.publish("SF/TEMP", "TEMP");
+    //   lastMsg = now;
+    //   char tempString[8];
+    //   itostrf(moisture, 1, 2, tempString);
+    //   sprintf("%d", &tempString, moisture);
+    //   client.publish("SF/TEMP", "TEMP");
     // }
     
 
-    // Rotate our pump
+    // Rotate the pump
     digitalWrite(motor1A, HIGH);     
     digitalWrite(motor2A, LOW);   
-    //delay(500);
+    delay(pumpDelay_ms);
 
     // Stop the pump
     digitalWrite(motor1A, LOW);     
     digitalWrite(motor2A, LOW);    
+
     
   } else{
     //THE PLANT IS CHILLIN
     Serial.println("The plant is chillin");
+    delay(pumpDelay_ms);
   }
 
-  // wait 1 seconds between every read
-  delay(1000);
+  // The delay here is covered above by pumpDelay_ms
 }
